@@ -1,6 +1,6 @@
 import warnings
 import pandas as pd
-from get_symbols import get_tradeable_symbols
+import functions
 
 warnings.simplefilter(action='ignore', category='FutureWarning')
 
@@ -11,6 +11,12 @@ warnings.simplefilter(action='ignore', category='FutureWarning')
 if __name__ == "__main__":
 
     # Step 1: Get the list of symbols
-    get_tradeable_symbols()
+    print('Getting symbols...')
+    symbol_response = functions.get_tradeable_symbols()
+
+    # Step 2: Construct and save price history
+    print('Constructing and saving price data to JSON...')
+    if len(symbol_response) > 0:
+        functions.store_price_history(symbol_response)
 
 
