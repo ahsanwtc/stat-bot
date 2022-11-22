@@ -3,6 +3,17 @@ from statsmodels.tsa.stattools import coint
 import statsmodels.api as sm
 import pandas as pd
 import numpy as np
+from config_api import z_score_window
+
+# calculate Z-score
+def calculate_zscore(spread):
+    df = pd.DataFrame(spread)
+    mean = df.rolling(center=False, window=z_score_window).mean()
+    std = df.rolling(center=False, window=z_score_window).std()
+    # taking one latest value as current value
+    x = df.rolling(center=False, window=1).mean()
+    df['ZSCORE'] = (x - mean) / std
+    return df['ZSCORE'].astype(float).values
 
 # calculate spread
 def calculate_spread(series_1, series_2, hedge_ratio):
