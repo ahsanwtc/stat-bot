@@ -4,7 +4,8 @@
 """
 
 # API imports
-from pybit import usdt_perpetual
+# from pybit import usdt_perpetual
+from pybit import HTTP
 from dotenv import load_dotenv
 import os
 
@@ -33,4 +34,4 @@ api_secret = api_secret_testnet if mode == 'test' else api_secret_mainnet
 api_url = os.getenv('BYBIT_TESTNET_URL') if mode == 'test' else os.getenv('BYBIT_MAINNET_URL')
 
 # Session activation
-session = usdt_perpetual.HTTP(api_url)
+session = HTTP(api_url)
